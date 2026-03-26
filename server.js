@@ -36,8 +36,6 @@ app.post('/api/users', (req, res) => {
     res.status(201).json(newUser);
 });
 
-module.exports = app;
-
 //DELETE user 
 app.delete('/api/users/:id', (req, res) => {
     const index = users.findIndex(u => u.id === parseInt(req.params.id));
@@ -47,3 +45,30 @@ app.delete('/api/users/:id', (req, res) => {
     users.splice(index, 1);
     res.status(204).send();
 });
+
+
+module.exports = app;
+
+// Health check endpoint
+app.get('/health', (req, res) => {
+  res.json({
+    status: 'OK',
+    timestamp: new Date().toISOString()
+  });
+});
+
+// Écouter sur 0.0.0.0 pour Docker
+const PORT = process.env.PORT || 3000;
+const server = app.listen(PORT, '0.0.0.0', () => {
+  console.log(`Server running on port ${PORT}`);
+  console.log(`Env: ${process.env.NODE_ENV || 'dev'}`);
+});
+
+// Graceful shutdown
+process.on('SIGTERM', () => {
+  console.log('SIGTERM: closing server');
+  server.close(() => {
+    console.log('Server closed');
+  });
+});
+

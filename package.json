@@ -4,11 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node server.js",
-    "test": "jest",
-    "test:coverage": "jest --coverage",
-    "lint": "eslint ."
-  },
+  "start": "node server-start.js",
+  "test": "jest",
+  "test:coverage": "jest --coverage",
+  "lint": "eslint ."
+},
   "jest": {
     "testEnvironment": "node",
     "coverageThreshold": {

@@ -48,5 +48,11 @@ describe('User API', () => {
         const response = await request(app).delete('/api/users/999');
         expect(response.status).toBe(404);
     });
+    test('GET /health should return OK', async () => {
+    const response = await request(app).get('/health');
+    expect(response.status).toBe(200);
+    expect(response.body.status).toBe('OK');
+    expect(response.body).toHaveProperty('timestamp');
+});
 
 });

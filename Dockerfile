@@ -17,7 +17,7 @@ RUN npm ci --only=production && \
     npm cache clean --force
 
 # Copier le code source
-COPY server.js .
+COPY server.js server-start.js ./
 
 # Créer utilisateur non-root pour sécurité
 RUN addgroup -S appgroup && \
